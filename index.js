@@ -9,7 +9,7 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.get("/", (req, res, next)=>{
-	res.send("Hello world!");
+	res.render("index");
 })
 app.listen(port, () => {
 	console.log("Server is listening on port + ", port);
