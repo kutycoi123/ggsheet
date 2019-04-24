@@ -4,10 +4,13 @@ var app = express();
 var path = require("path");
 var bodyParser = require("body-parser");
 var port = 3000;
-
+var SheetRouter = require("./routes/sheet");
+var AuthMiddleware = require("./middlewares/auth");
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(AuthMiddleware.checkAuth);
+app.use("/spreadsheets", SheetRouter);
 app.get("/", (req, res, next)=>{
 	res.render("index");
 })
