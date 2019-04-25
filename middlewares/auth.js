@@ -6,7 +6,7 @@ module.exports = {
             return;
         }
         res.locals.accessToken = auth;
-        console.log(res.locals.accessToken);
+        //console.log(res.locals.accessToken);
         next();
     }
 }

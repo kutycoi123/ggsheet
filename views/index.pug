@@ -1,11 +1,14 @@
 extends ./layouts/common
 
 block content
-	h1 Hello World!
-	div(class="g-signin2", data-onsuccess="onSignIn")
-	#user-name
-	#user-email
-	button(rel="sync") Sync all sheets
+	if errors
+		each error in errors
+			.alert.alert-danger= error
+	#main-content
+		#sign-in-button
+			div(class="g-signin2", data-onsuccess="onSignIn")
+		#dashboard
 	
+
 
 
