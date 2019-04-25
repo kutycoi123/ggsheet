@@ -18,13 +18,13 @@ function onSignIn(user){
 }
 function onSignOut(){
 	let auth2 = gapi.auth2.getAuthInstance();
-	console.log(auth2);
     auth2.signOut().then(function () {
 		makeAjaxRequest("POST", "/logout", function(err, response){
 			if(err){
 				console.log(err);
 				return;
 			}
+			console.log(response);
 			$("#dashboard")[0].innerHTML = "";
 		})
     });

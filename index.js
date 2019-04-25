@@ -7,22 +7,25 @@ var port = 3000;
 var SheetRouter = require("./routes/sheet");
 var AuthMiddleware = require("./middlewares/auth");
 var mongoose = require('mongoose');
+
+var User = require("./models/user.model");
 mongoose.connect('mongodb://localhost/ggsheetDB', {useNewUrlParser: true});
 mongoose.set('useFindAndModify', false);
+
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log("Db connected");
 });
-var User = require("./models/user.model");
+
+
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(AuthMiddleware.checkAuth);
 
-app.use("/spreadsheets", SheetRouter);
+app.use("/spreadsheets", AuthMiddleware.checkAuth, SheetRouter);
 app.get("/", (req, res, next)=>{
 	res.render("index");
 })
@@ -41,7 +44,16 @@ app.post("/login", (req, res, next) => {
 	
 })
 app.post("/logout", (req, res, next) => {
-	res.render("index");
+	let {gmail, access_token} = req.body;
+	User.updateOne({gmail}, {access_token: ""}, function(err, response){
+		if(err){
+			console.log(err);
+			res.render("index", {errors: [err]});
+			return;
+		}
+		console.log(response);
+		res.render("index");
+	})
 })
 app.listen(port, () => {
 	console.log("Server is listening on port + ", port);
