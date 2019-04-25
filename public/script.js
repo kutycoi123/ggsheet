@@ -14,6 +14,16 @@ function onSignIn(user){
 		//$("html")[0].innerHTML = response;
 		//$("body")[0].innerHTML = response.split("<body>")[1].split("</body>")[0];
 		$("#dashboard")[0].innerHTML = response.split("<body>")[1].split("</body>")[0];
+		$('button[rel="sync"]').click(function(){
+			console.log("Syncing")
+			makeAjaxRequest('POST', '/spreadsheets/sync', function(err, response){
+				if(err){
+					console.log(err);
+					return;
+				}
+				console.log(response);
+			}, {spreadsheetId: "1fWYf-3L5Kiolml6KzmCN9EII3Qcb9Qcvmmi8_W1EHkw"})
+		})
 	})
 }
 function onSignOut(){
@@ -30,18 +40,10 @@ function onSignOut(){
     });
 }
 $(function(){
-	$('button[rel="sync"]').click(function(){
-		makeAjaxRequest('GET', '/spreadsheets/1fWYf-3L5Kiolml6KzmCN9EII3Qcb9Qcvmmi8_W1EHkw/sync', function(err, response){
-			if(err){
-				console.log(err);
-				return;
-			}
-			console.log(response);
-		})
-	})
+	
 })
 
-function makeAjaxRequest(method, url, callback){
+function makeAjaxRequest(method, url, callback, data={}){
 	let auth = gapi.auth2.getAuthInstance();
 	let accessToken;
 	if(auth)
@@ -50,6 +52,9 @@ function makeAjaxRequest(method, url, callback){
 		accessToken = "";
 	let user_email = auth.currentUser.Ab.w3.U3;
 	let body = {access_token: accessToken, gmail: user_email};
+	for(let i in data){
+		body[i] = data[i];
+	}
 	$.ajax(url, {
 		method,
 		headers: {

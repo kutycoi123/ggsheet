@@ -10,13 +10,13 @@ class GoogleSheet{
 		};
 		this.service = google.sheets({version: 'v4', auth: auth});
 	}
-	getSheets(spreadsheetId, callback, ranges=[], includeGridData=false){
+	getSheetsMeta(spreadsheetId, callback, ranges=[], includeGridData=false){
 		let request = {
 			spreadsheetId,
 			ranges,
 			includeGridData
 		}
-		this.service.spreadsheets.get(request, function(err, response){
+		this.service.spreadsheets.get(request, (err, response) => {
 			if(err){
 				callback(err);
 				return;
@@ -24,6 +24,21 @@ class GoogleSheet{
 			callback(null, response);
 		})
 	}
+	getAllSheetsData(spreadsheetId, sheetTitles, callback, ranges=[]){
+		let request = {
+			spreadsheetId,
+			ranges: [sheetTitles, ...ranges]
+		}
+		this.service.spreadsheets.values.batchGet(request, function(err, response){
+			if(err){
+				callback(err);
+				return;
+			}
+			callback(null, response);
+		})
+	}
+	
+	
 }
 module.exports = GoogleSheet;
 
