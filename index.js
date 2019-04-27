@@ -38,7 +38,6 @@ app.post("/login", (req, res, next) => {
 			res.json({errors: [err]});
 			return;
 		}
-		console.log("Data:", data);
 		res.render("dashboard/index", {user: data});
 	})
 	

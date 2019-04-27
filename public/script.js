@@ -9,20 +9,20 @@ function onSignIn(user){
 			console.log(err);
 			return;
 		}
-		//console.log(response.split("<body>")[1].split("</body>")[0]);
-		//$("html")[0].innerHTML = response.split("<body>")[1].split("</body>")[0];
-		//$("html")[0].innerHTML = response;
-		//$("body")[0].innerHTML = response.split("<body>")[1].split("</body>")[0];
 		$("#dashboard")[0].innerHTML = response.split("<body>")[1].split("</body>")[0];
-		$('button[rel="sync"]').click(function(){
-			console.log("Syncing")
+		$("#spreadsheetId-form").submit(function(e){
+			return false;
+		})
+		$('button[rel="submit-btn"]').click(function(){
+			console.log("Syncing");
+			let spreadsheetId = document.getElementById("spreadsheetId").value;
 			makeAjaxRequest('POST', '/spreadsheets/sync', function(err, response){
 				if(err){
 					console.log(err);
 					return;
 				}
 				console.log(response);
-			}, {spreadsheetId: "1fWYf-3L5Kiolml6KzmCN9EII3Qcb9Qcvmmi8_W1EHkw"})
+			}, {spreadsheetId: spreadsheetId})
 		})
 	})
 }
@@ -34,7 +34,7 @@ function onSignOut(){
 				console.log(err);
 				return;
 			}
-			console.log(response);
+			//console.log(response);
 			$("#dashboard")[0].innerHTML = "";
 		})
     });
