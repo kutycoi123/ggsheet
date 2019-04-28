@@ -58,7 +58,7 @@ function makeAjaxRequest(method, url, callback, data={}){
 	$.ajax(url, {
 		method,
 		headers: {
-			'Authorization': accessToken
+			'Authorization': "Bearer " + accessToken
 		},
 		data: body,
 		success: (response) => {

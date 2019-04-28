@@ -10,7 +10,7 @@ class GoogleSheet{
 		};
 		this.service = google.sheets({version: 'v4', auth: auth});
 	}
-	getSheetsMeta(spreadsheetId, callback, ranges=[], includeGridData=false){
+	getSheetsMetadata(spreadsheetId, callback, ranges=[], includeGridData=false){
 		let request = {
 			spreadsheetId,
 			ranges,
@@ -24,7 +24,7 @@ class GoogleSheet{
 			callback(null, response);
 		})
 	}
-	getAllSheetsData(spreadsheetId, sheetTitles, callback, ranges=[]){
+	getAllSheetData(spreadsheetId, sheetTitles, callback, ranges=[]){
 		let request = {
 			spreadsheetId,
 			ranges: [sheetTitles, ...ranges]
