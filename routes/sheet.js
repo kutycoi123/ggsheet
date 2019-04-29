@@ -4,6 +4,7 @@ var router = express.Router();
 var GoogleSheet = require("../sheetapis/index");
 var Spreadsheet = require("../models/spreadsheet.model");
 var Sheet = require("../models/sheet.model");
+
 router.post("/sync", (req, res, next) => {
     let {accessToken, gmail} = res.locals;
     let helper = new GoogleSheet(accessToken);
@@ -57,6 +58,21 @@ router.get("/", async function(req, res, next){
     let result = await Spreadsheet.find({user_gmail: gmail});
     res.json(result);
 
+})
+
+router.post("/query", function(req, res, next){
+    let {queryString, spreadsheetId, tittle} = req.body;
+    let regexString = new RegExp(queryString);
+    Sheet.aggregate([{$match: {spreadsheetId, tittle}}, {$unwind: "$rows"}, {$match: {"rows.cells": {$in: [regexString]}}}], function(err, response){
+        if(err){
+            console.log(err);
+            res.json({errors: [err]});
+            return;
+        }
+        res.json(response);
+        return;
+
+    })
 })
 
 module.exports = router;
