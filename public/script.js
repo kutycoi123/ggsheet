@@ -13,7 +13,7 @@ function onSignIn(user){
 		$("#spreadsheetId-form").submit(function(e){
 			return false;
 		})
-		$('button[rel="submit-btn"]').click(function(){
+		$('button[rel="sync-submit-btn"]').click(function(){
 			console.log("Syncing");
 			let spreadsheetId = document.getElementById("spreadsheetId").value;
 			makeAjaxRequest('POST', '/spreadsheets/sync', function(err, response){
@@ -23,6 +23,22 @@ function onSignIn(user){
 				}
 				console.log(response);
 			}, {spreadsheetId: spreadsheetId})
+		})
+		$('button[rel="query-submit-btn"]').click(function(){
+			console.log("Querying");
+			let queryString = document.getElementById("query").value;
+			let spreadsheetId = document.getElementById("spreadsheetId").value;
+			if(!queryString || !spreadsheetId){
+				console.log("Need both queryString and spreadsheetId for query request");
+				return;
+			}
+			makeAjaxRequest('POST', '/spreadsheets/query', function(err, response){
+				if(err){
+					console.log(err);
+					return;
+				}
+				console.log(response);	
+			}, {queryString, spreadsheetId})
 		})
 	})
 }

@@ -8,6 +8,9 @@ block content
         label(for="spreadsheetId") SpreadsheetId
         input(type="text", class="form-control", id="spreadsheetId", placeholder="Enter spreadsheetId", name="spreadsheetId")
         small(class="form-text text-muted") Use spreadsheetId to sync your sheet data with database
-        button(rel="submit-btn", type="submit", class="btn btn-primary") Sync
+        input(type="text", class="form-control", id="query", placeholder="Enter query string", name="query")
+        small(class="form-text text-muted") Enter text that you want to search for
+        button(rel="sync-submit-btn", type="submit", class="btn btn-primary mr-2") Sync
+        button(rel="query-submit-btn", type="submit", class="btn btn-primary") Query
     
     

@@ -9,6 +9,7 @@ var AuthMiddleware = require("./middlewares/auth");
 var mongoose = require('mongoose');
 
 var User = require("./models/user.model");
+var AuthController = require("./controllers").auth;
 mongoose.connect('mongodb://localhost/ggsheetDB', {useNewUrlParser: true});
 mongoose.set('useFindAndModify', false);
 
@@ -29,31 +30,8 @@ app.use("/spreadsheets", AuthMiddleware.checkAuth, SheetRouter);
 app.get("/", (req, res, next)=>{
 	res.render("index");
 })
-app.post("/login", (req, res, next) => {
-	//console.log(req);
-	let {gmail, access_token} = req.body;
-	User.findOneAndUpdate({gmail}, {gmail , access_token}, {new: true, upsert: true}, function(err, data){
-		if(err){
-			console.log(err);
-			res.json({errors: [err]});
-			return;
-		}
-		res.render("dashboard/index", {user: data});
-	})
-	
-})
-app.post("/logout", (req, res, next) => {
-	let {gmail, access_token} = req.body;
-	User.updateOne({gmail}, {access_token: ""}, function(err, response){
-		if(err){
-			console.log(err);
-			res.render("index", {errors: [err]});
-			return;
-		}
-		console.log(response);
-		res.render("index");
-	})
-})
+app.post("/login", AuthController.login)
+app.post("/logout", AuthController.logout)
 app.listen(port, () => {
 	console.log("Server is listening on port + ", port);
 })
