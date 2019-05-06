@@ -18,7 +18,7 @@ module.exports = {
         helper.getSheetsMetadata(spreadsheetId, function (err, response) {
             if (err) {
                 console.log(err);
-                res.json({});
+                res.json({errors: err});
                 return;
             }
 

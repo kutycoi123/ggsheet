@@ -19,9 +19,14 @@ function onSignIn(user){
 			makeAjaxRequest('POST', '/spreadsheets/sync', function(err, response){
 				if(err){
 					console.log(err);
+					alert("Sync failed!");
 					return;
 				}
 				console.log(response);
+				if(response.errors){
+					alert("Sync failed!");
+				}else
+					alert("Sync successfully!");
 			}, {spreadsheetId: spreadsheetId})
 		})
 		$('button[rel="query-submit-btn"]').click(function(){
