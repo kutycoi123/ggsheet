@@ -21,15 +21,16 @@ module.exports = {
                 res.json({errors: err});
                 return;
             }
-
+            console.log(response);
             let sheetsInfo = response.data.sheets;
+            let spreadsheetTitle = response.data.properties.title;
             let sheetTitles = sheetsInfo.map(sheet => sheet.properties.title);
             helper.getAllSheetData(spreadsheetId, sheetTitles, async (err, response) => {
 
                 let returnedResponse = {};
                 let sheets = response.data.valueRanges
                 let spreadsheet = await Spreadsheet.findOneAndUpdate({ spreadsheetId },
-                    { spreadsheetId, user_gmail: gmail }, { new: true, upsert: true });
+                    { spreadsheetId, user_gmail: gmail, title: spreadsheetTitle}, { new: true, upsert: true });
                 returnedResponse.spreadsheet = spreadsheet;
                 returnedResponse.sheets = [];
                 for (let i = 0; i < sheets.length; ++i) {

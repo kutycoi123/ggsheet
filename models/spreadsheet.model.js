@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 var spreadsheetSchema = new Schema({
     spreadsheetId: String,
     user_gmail: String,
+    title: String,
     // sheets: [
     //     {
     //         sheet_db_id: String,
