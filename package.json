@@ -10,6 +10,7 @@
   "author": "lam",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "google-auth-library": "^3.1.2",

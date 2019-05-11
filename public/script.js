@@ -71,6 +71,7 @@ function makeAjaxRequest(method, url, callback, data={}){
 		accessToken = auth.currentUser.get().getAuthResponse().access_token;
 	else
 		accessToken = "";
+	console.log(accessToken);
 	let user_email = auth.currentUser.Ab.w3.U3;
 	let body = {access_token: accessToken, gmail: user_email};
 	for(let i in data){

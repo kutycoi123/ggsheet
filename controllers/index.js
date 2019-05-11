@@ -1,5 +1,6 @@
-const {getSpreadsheet, sync, query} = require("./sheet.controller");
+const {getSpreadsheet, sync, query} = require("./spreadsheet.controller");
 const {login, logout} = require("./auth.controller");
+const {get} = require("./sheet.controller");
 module.exports = {
     spreadsheet: {
         getSpreadsheet,
@@ -9,5 +10,9 @@ module.exports = {
     auth: {
         login,
         logout
+    },
+    sheet: {
+        get,
+        del
     }
 };

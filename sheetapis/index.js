@@ -37,7 +37,19 @@ class GoogleSheet{
 			callback(null, response);
 		})
 	}
-	
+	getSpecificSheetData(spreadsheetId, sheetTitle, callback){
+		let request = {
+			spreadsheetId,
+			range: `${sheetTitles}`
+		}
+		this.service.spreadsheets.values.get(request, function(err, response){
+			if(err){
+				callback(err);
+				return;
+			}
+			callback(null, response);
+		})
+	}
 	
 }
 module.exports = GoogleSheet;
