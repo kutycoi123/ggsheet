@@ -16,10 +16,16 @@ module.exports = {
     checkUserEmail: async (req, res, next) => {
         let { accessToken, gmail } = res.locals;
         let { spreadsheetId, sheetId } = req.params;
-        let userInfoFromGoogle = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo",
-                                                { headers: { 'Authorization': 'Bearer ' + accessToken } });
-        console.log(userInfoFromGoogle.data);
-        console.log(gmail);
+        console.log(accessToken);
+        let userInfoFromGoogle;
+        try{
+            userInfoFromGoogle = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo",
+                                                { headers: { 'Authorization': 'Bearer ' + accessToken } })
+        }catch(err){
+            res.json({errors: [{message: "Cannot validate user access token. Please provide another one!!!"}]})
+            return;
+        }
+        
         if (userInfoFromGoogle.data.email != gmail) {
             res.json({ errors: [{ message: "Access token and user gmail are not matched" }] });
             return;

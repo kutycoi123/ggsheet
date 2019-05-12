@@ -1,9 +1,10 @@
-const {getSpreadsheet, sync, query} = require("./spreadsheet.controller");
+const {getAllSpreadsheets, getOneSpreadsheet, sync, query} = require("./spreadsheet.controller");
 const {login, logout} = require("./auth.controller");
 const {get, del} = require("./sheet.controller");
 module.exports = {
     spreadsheet: {
-        getSpreadsheet,
+        getAllSpreadsheets,
+        getOneSpreadsheet,
         sync,
         query
     },

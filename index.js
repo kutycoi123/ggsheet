@@ -26,7 +26,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use("/spreadsheet", AuthMiddleware.checkAuth, SheetRouter);
+app.use("/spreadsheet", AuthMiddleware.checkAuth,SheetRouter);
 
 app.get("/", (req, res, next)=>{
 	res.render("index");

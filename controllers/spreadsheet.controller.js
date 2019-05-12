@@ -5,9 +5,19 @@ var Spreadsheet = require("../models/spreadsheet.model");
 var Sheet = require("../models/sheet.model");
 
 module.exports = {
-    getSpreadsheet: async (req, res, next) => {
+    getAllSpreadsheets: async (req, res, next) => {
         let { accessToken, gmail } = res.locals;
         let result = await Spreadsheet.find({ user_gmail: gmail });
+        if(!result){
+            res.json({});
+            return;
+        }
+        res.json(result);
+    },
+    getOneSpreadsheet: async (req, res, next) => {
+        let {spreadsheetId} = req.params;
+        let {gmail} = res.locals;
+        let result = await Spreadsheet.find({user_gmail: gmail, spreadsheetId});
         res.json(result);
     },
     sync: async (req, res, next) => {

@@ -7,7 +7,6 @@ module.exports = {
         }
         res.locals.accessToken = auth;
         res.locals.gmail = req.body.gmail;
-        console.log(req.body);
         next();
     }
 }
