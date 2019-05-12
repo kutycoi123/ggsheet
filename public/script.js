@@ -16,7 +16,7 @@ function onSignIn(user){
 		$('button[rel="sync-submit-btn"]').click(function(){
 			console.log("Syncing");
 			let spreadsheetId = document.getElementById("spreadsheetId").value;
-			makeAjaxRequest('POST', '/spreadsheets/sync', function(err, response){
+			makeAjaxRequest('POST', '/spreadsheet/sync', function(err, response){
 				if(err){
 					console.log(err);
 					alert("Sync failed!");
@@ -37,7 +37,7 @@ function onSignIn(user){
 				console.log("Need both queryString and spreadsheetId for query request");
 				return;
 			}
-			makeAjaxRequest('POST', '/spreadsheets/query', function(err, response){
+			makeAjaxRequest('POST', '/spreadsheet/query', function(err, response){
 				if(err){
 					console.log(err);
 					return;

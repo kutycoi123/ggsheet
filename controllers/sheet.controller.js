@@ -13,8 +13,8 @@ module.exports = {
                 return;
             }
             res.json(response);
+            return;
         })
-        res.json({})
     },
     del: (req, res, next) => {
         let { spreadsheetId, sheetId } = req.params;
@@ -24,6 +24,7 @@ module.exports = {
                 return;
             }
             res.json({ response });
+            return;
         })
 
     },

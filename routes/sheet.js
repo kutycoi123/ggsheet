@@ -11,7 +11,7 @@ router.get("/", getSpreadsheet);
 
 router.post("/query", query);
 
-router.get("/:spreadsheetId/sheet/:sheetId", validate.checkUserEmail, validate.checkSpreadsheet, get);
+router.post("/:spreadsheetId/sheet/:sheetId", validate.checkUserEmail, validate.checkSpreadsheet, get);
 
 router.delete("/:spreadsheetId/sheet/:sheetId/delete", validate.checkUserEmail, validate.checkSpreadsheet,del);
 
