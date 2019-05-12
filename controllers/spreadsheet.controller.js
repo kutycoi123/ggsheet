@@ -60,12 +60,12 @@ module.exports = {
         })
     },
     query: async (req, res, next) => {
-        let { queryString, spreadsheetId, tittle } = req.body;
+        let { queryString, spreadsheetId, titleSheet } = req.body;
         let {gmail} = res.locals;
         let regexString = new RegExp(queryString);
         let foundSpreadsheet = await Spreadsheet.find({user_gmail: gmail});
         if(foundSpreadsheet){
-            Sheet.aggregate([{ $match: { spreadsheetId, tittle } }, { $unwind: "$rows" }, { $match: { "rows.cells": { $in: [regexString] } } }], function (err, response) {
+            Sheet.aggregate([{ $match: { spreadsheetId, title: titleSheet } }, { $unwind: "$rows" }, { $match: { "rows.cells": { $in: [regexString] } } }], function (err, response) {
                 if (err) {
                     console.log(err);
                     res.json({ errors: [err] });

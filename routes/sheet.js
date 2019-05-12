@@ -5,11 +5,11 @@ var router = express.Router();
 const {sync, getSpreadsheet, query} = require("../controllers").spreadsheet;
 const {get, del} = require("../controllers").sheet;
 const validate = require("../middlewares/validateSpreadsheetAndSheet");
-router.post("/sync", sync);
+router.post("/sync", validate.checkUserEmail, sync);
 
-router.get("/", getSpreadsheet);
+router.get("/", validate.checkUserEmail, getSpreadsheet);
 
-router.post("/query", query);
+router.post("/query",  validate.checkUserEmail, query);
 
 router.post("/:spreadsheetId/sheet/:sheetId", validate.checkUserEmail, validate.checkSpreadsheet, get);
 
