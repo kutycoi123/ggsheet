@@ -12,4 +12,4 @@ and to quickly search any text/pattern over all of their sheets
 |POST   |/spreadsheet/sync   |access_token   |{gmail, spreadsheetId}   |Synchronized spreadsheet in database with the one on google sheet   |
 |POST   |/spreadsheet/query  |access_token   |{gmail, queryString, spreadsheetId, titleSheet(optional)}   |All rows in google sheet that contain the query text |
 |POST   |/spreadsheet/:spreadsheetid/sheet/:sheetid   |acces_token   |{gmail}   | Specific sheet data|
-|POST   |/spreadsheet/:spreadsheetid/sheet/:sheetid/delete | access_token | {gmail} | Deleted sheet data |
+|DELETE   |/spreadsheet/:spreadsheetid/sheet/:sheetid/delete | access_token | {gmail} | Deleted sheet data |
