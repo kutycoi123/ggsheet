@@ -7,9 +7,9 @@ and to quickly search any text/pattern over all of their sheets
 #### RESTful endpoints:
 |Method   |Endpoint|Bearer authorization Header | Request body  |Response   |
 |---|---|---|---|---|
-|POST    |/spreadsheet         |access_token|{gmail}   | All spreadsheets metadata of gmail user in our database  |
-|POST    |/spreadsheet/:spreadsheetid | access_token| {gmail} | Specific spreadsheet metadata of gmail user in our database |
-|POST   |/spreadsheet/sync   |access_token   |{gmail, spreadsheetId}   |Synchronized spreadsheet in database with the one on google sheet   |
-|POST   |/spreadsheet/query  |access_token   |{gmail, queryString, spreadsheetId, titleSheet(optional)}   |All rows in google sheet that contain the query text |
-|POST   |/spreadsheet/:spreadsheetid/sheet/:sheetid   |acces_token   |{gmail}   | Specific sheet data|
-|DELETE   |/spreadsheet/:spreadsheetid/sheet/:sheetid/delete | access_token | {gmail} | Deleted sheet data |
+|**POST**    |`/spreadsheet`         |access_token|`{gmail}`   | All spreadsheets metadata of gmail user in our database  |
+|**POST**    |`/spreadsheet/:spreadsheetid` | access_token| `{gmail}` | Specific spreadsheet metadata of gmail user in our database |
+|**POST**   |`/spreadsheet/sync`   |access_token   |`{gmail, spreadsheetId}`   |Synchronized spreadsheet in database with the one on google sheet   |
+|**POST**  |`/spreadsheet/query`  |access_token   |`{gmail, queryString, spreadsheetId, titleSheet(optional)}`   |All rows in google sheet that contain the query text |
+|**POST**   |`/spreadsheet/:spreadsheetid/sheet/:sheetid `  |acces_token   |`{gmail}`   | Specific sheet data|
+|**DELETE**   |`/spreadsheet/:spreadsheetid/sheet/:sheetid/delete`| access_token | `{gmail}` | Deleted sheet data |
